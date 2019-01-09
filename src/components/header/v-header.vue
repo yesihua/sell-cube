@@ -1,5 +1,5 @@
 <template>
-  <div class="header" @click="showDetail">
+  <div class="header">
     <div class="content-wrapper">
       <div class="avatar">
         <img width="64" height="64" :src="seller.avatar" />
@@ -17,8 +17,18 @@
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
+      <div v-if="seller.supports" class="support-count" @click="showDetail" :seller="seller">
+        <span class="count">{{seller.supports.length}}个</span>
+        <i class="icon-keyboard_arrow_right" ></i>
+      </div>
     </div>
-    <div class="bulletin-wrapper">
+    <div class="bulletin-wrapper" @click="showDetail" :seller="seller">
+      <span class="bulletin-title"></span>
+      <span class="bulletin-text">{{seller.bulletin}}</span>
+      <i class="icon-keyboard_arrow_right" ></i>
+    </div>
+    <div class="background">
+      <img :src="seller.avatar" width="100%" height="100%" />
     </div>
   </div>
 </template>
@@ -48,6 +58,7 @@
             seller: 'seller'
         })
         this.headerDetailCom.visible = true
+        this.headerDetailCom.seller = this.seller
       }
     }
   }
@@ -58,10 +69,13 @@
   @import "../../common/stylus/mixin.styl"
   .header
     color: #fff
-    background: #000
+    background: rgba(7,17,27,0.5)
+    position: relative
+    overflow: hidden
     .content-wrapper
       padding: 24px 12px 38px 24px
       font-size: 0
+      position: relative
       .avatar
         display: inline-block
         font-size: 14px
@@ -91,13 +105,13 @@
           margin-bottom: 10px
           line-height: 12px
           font-size: 12px
-        .support
+        .supports
           .icon
             vertical-align: top
             display: inline-block
             width: 12px
             height: 12px
-            margin-right: 10px
+            margin-right: 4px
             background-size: 12px 12px
             background-repeat: no-repeat
             &.decrease
@@ -111,6 +125,59 @@
             &.special
               bg-image('special_1')
           .text
-            font-size: 12px
+            font-size: 10px
             line-height: 12px
+            vertical-align: top
+      .support-count
+        position: absolute
+        right: 12px
+        bottom: 14px
+        padding: 0px 8px
+        height: 24px
+        line-height: 24px
+        border-radius: 14px
+        background-color: rgba(0,0,0,0.2)
+        text-align: center
+        .count
+          font-size: 10px
+          vertical-align: top
+        .icon-keyboard_arrow_right
+          font-size: 10px
+          line-height: 24px
+          margin-left: 2px
+    .bulletin-wrapper
+      height: 28px
+      line-height: 28px
+      padding: 0 22px 0 12px
+      background-color: rgba(7,17,27,0.2)
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+      position: relative
+      .bulletin-title
+        bg-image('bulletin')
+        display: inline-block
+        width: 22px
+        height: 12px
+        vertical-align: top
+        background-size: 22px 12px
+        background-repeat: no-repeat
+        margin-top: 8px
+      .bulletin-text
+        font-size: 10px
+        margin: 0 4px
+        vertical-align: top
+      .icon-keyboard_arrow_right
+        position: absolute
+        right: 12px
+        font-size: 10px
+        top: 10px
+    .background
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      z-index: -1
+      filter: blur(10px)
 </style>
