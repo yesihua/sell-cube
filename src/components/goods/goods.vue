@@ -1,6 +1,6 @@
 <template>
     <div>
-      fff
+      我是商品组件
     </div>
 </template>
 
