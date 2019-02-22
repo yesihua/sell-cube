@@ -74,7 +74,7 @@
       .star-item
         width: 15px
         height: 15px
-        margin-right: 16px
+        margin-right: 6px
         background-size: 15px 15px
         display: inline-block
         background-repeat: no-repeat

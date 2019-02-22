@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="content">
-      <router-view></router-view>
+      <router-view :seller="seller"></router-view>
     </div>
   </div>
 </template>
@@ -21,19 +21,24 @@
 <script>
   import VHeader from './components/header/v-header.vue'
   import { getSeller } from './api'
+  import qs from 'query-string'
 
   export default {
-    data () {
+    data() {
       return {
-        seller: {}
+        seller: {
+          id: qs.parse(location.search).id
+        }
       }
     },
-    created () {
+    created() {
       this._getSeller()
     },
     methods: {
-      _getSeller () {
-        getSeller().then((seller) => {
+      _getSeller() {
+        getSeller({
+          id: this.seller.id
+        }).then((seller) => {
           this.seller = seller
         })
       }

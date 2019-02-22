@@ -4,9 +4,10 @@ const seller = appData.seller
 const goods = appData.goods
 const ratings = appData.ratings
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, dir)
 }
+
 module.exports = {
   css: {
     loaderOptions: {
@@ -19,11 +20,12 @@ module.exports = {
     }
   },
   devServer: {
-    before (app) {
+    before(app) {
       app.get('/api/seller', function (req, res) {
+        const id = req.query.id
         res.json({
           errno: 0,
-          data: seller
+          data: Object.assign({}, seller, { id })
         })
       })
       app.get('/api/goods', function (req, res) {
