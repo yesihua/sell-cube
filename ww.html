@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS布局</title>
+    <script type="text/ecmascript-6">
+        /*数组去重,原数组不变*/
+        let array = [1,2,3,3,2,4];
+        let newarrary = array.filter((num,index,arr)=>arr.indexOf(num) ===index);
+        console.log(newarrary);
+        /*找到数组莫一项*/
+        let arrary1=[
+            {id: 1, title: 'Title 1'},
+            {id: 2, title: 'Title 2'}
+        ]
+        console.log(arrary1.filter((num,index,arr)=>num.id==1));
+        console.log(arrary1.find(item=>item.id===1))
+        /*对象合并*/
+        let arrary2=[
+            {id: 1, title: 'Title 1'},
+            {id: 2, title: 'Title 2'}
+        ];
+        let arrary3=[
+            {id: 3, title: 'Title 1'},
+            {id: 4, title: 'Title 2'}
+        ]
+        console.log([...arrary2,...arrary3]);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

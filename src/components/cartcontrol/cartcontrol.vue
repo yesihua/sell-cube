@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-
+  import { mapMutations, mapActions } from 'vuex'
   export default {
     name: 'cartcontrol',
     props: {
@@ -23,8 +23,17 @@
       return {}
     },
     methods: {
+      ...mapMutations({
+        setFoods: 'SET_FOODS'
+      }),
+      ...mapActions(
+        ['foodList']
+      ),
       addCart() {
-        console.log('click')
+        this.foodList({
+          food: this.food
+        })
+        /** this.setFoods(this.food)**/
         if (!this.food.count) {
           this.$set(this.food, 'count', 1)
         } else {

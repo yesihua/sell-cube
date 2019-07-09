@@ -30,7 +30,7 @@
           </div>
           <div class="list-content" ref="listContent">
             <ul>
-              <li class="food" v-for="food in selectFoods">
+              <li class="food" v-for="food in selectFoods" :key="food.id">>
                 <span class="name">{{food.name}}</span>
                 <div class="price">
                   <span>￥{{food.price*food.count}}</span>
@@ -53,9 +53,9 @@
 <script type="text/ecmascript-6">
   import cartcontrol from '../cartcontrol/cartcontrol'
   import BScroll from 'better-scroll'
-
+  import { mapGetters } from 'vuex'
   export default {
-    components: {cartcontrol},
+    components: { cartcontrol },
     props: {
       selectFoods: {
         type: Array,
@@ -78,6 +78,9 @@
       }
     },
     computed: {
+      ...mapGetters([
+        'foods'
+      ]),
       totalPrice() {
         let total = 0
         this.selectFoods.forEach((food) => {
@@ -131,6 +134,7 @@
     },
     methods: {
       toggleList() {
+        console.log(this.foods)
         if (!this.totalCount) {
           return
         }
@@ -145,7 +149,7 @@
         this.fold = true
       },
       pay() {
-        this.fold=true
+        this.fold = true
         if (this.totalPrice < this.minPrice) {
           return
         }

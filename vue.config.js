@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const appData = require('./data.json')
 const seller = appData.seller
 const goods = appData.goods
@@ -19,6 +20,13 @@ module.exports = {
       }
     }
   },
+  // configureWebpack: {
+  //   output: {
+  //     filename: 'js/[name].js',
+  //     chunkFilename: 'js/[name].js'
+  //
+  //   }
+  // },
   devServer: {
     before(app) {
       app.get('/api/seller', function (req, res) {
@@ -52,5 +60,10 @@ module.exports = {
     config.resolve.alias
       .set('components', resolve('src/components'))
       .set('common', resolve('src/common'))
+      .set('api', resolve('src/api'))
+      .set('base', resolve('src/base'))
+    config.plugin('context')
+      .use(webpack.ContextReplacementPlugin,
+        [/moment[/\\]locale$/, /zh-cn/])
   }
 }

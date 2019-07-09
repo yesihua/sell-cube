@@ -49,7 +49,6 @@
   import BScroll from 'better-scroll'
   import shopcart from '../shopcart/shopcart'
   import cartcontrol from '../cartcontrol/cartcontrol'
-
   export default {
     props: {
       seller: {

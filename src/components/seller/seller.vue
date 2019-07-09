@@ -1,4 +1,5 @@
 <template>
+  <scroll :data="seller.supports" class="rating-wrapper">
   <div class="seller">
     <div class="seller-content">
       <div class="overview">
@@ -53,6 +54,7 @@
       <split></split>
     </div>
   </div>
+  </scroll>
 </template>
 
 <script type="text/ecmascript-6">
@@ -60,6 +62,7 @@
   import { loadFromLocal, saveToLocal } from '../../common/js/storage'
   import split from '../split/split'
   import SupportIco from 'components/support-ico/support-ico'
+  import Scroll from '../base/scroll'
   const KEY = 'favorite'
   export default {
     name: 'seller',
@@ -71,7 +74,8 @@
     components: {
       star,
       split,
-      SupportIco
+      SupportIco,
+      Scroll
     },
     methods: {
       toggleFavorite() {
@@ -180,6 +184,9 @@
     .bulletin
       padding: 18px 18px 0 18px
       white-space: normal
+      position: absolute
+      overflow: hidden
+      height:100%
       .title
         margin-bottom: 8px
         line-height: 14px

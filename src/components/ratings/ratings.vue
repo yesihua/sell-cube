@@ -28,41 +28,41 @@
       <div>
         <ratingselect @select="onselectType" @toggle="onlyContentSel" :ratings="ratings"
                       :selectType="selectType" :onlyContent="onlyContent"></ratingselect>
-        <div class="rating-wrapper">
-          <ul>
-            <li
-              v-for="(rating,index) in computedRatings"
-              :key="index"
-              class="rating-item border-bottom-1px"
-            >
-              <div class="avatar">
-                <img width="28" height="28" :src="rating.avatar">
-              </div>
-              <div class="content">
-                <h1 class="name">{{rating.username}}</h1>
-                <div class="star-wrapper">
-                  <star :size="24" :score="rating.score"></star>
-                  <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}</span>
+        <scroll :data="computedRatings" class="rating-wrapper">
+            <ul>
+              <li
+                v-for="(rating,index) in computedRatings"
+                :key="index"
+                class="rating-item border-bottom-1px"
+              >
+                <div class="avatar">
+                  <img width="28" height="28" :src="rating.avatar">
                 </div>
-                <p class="text">{{rating.text}}</p>
-                <div class="recommend" v-show="rating.recommend && rating.recommend.length">
-                  <span class="icon-thumb_up"></span>
-                  <span
-                    class="item"
-                    v-for="(item,index) in rating.recommend"
-                    :key="index"
-                  >
+                <div class="content">
+                  <h1 class="name">{{rating.username}}</h1>
+                  <div class="star-wrapper">
+                    <star :size="24" :score="rating.score"></star>
+                    <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}</span>
+                  </div>
+                  <p class="text">{{rating.text}}</p>
+                  <div class="recommend" v-show="rating.recommend && rating.recommend.length">
+                    <span class="icon-thumb_up"></span>
+                    <span
+                      class="item"
+                      v-for="(item,index) in rating.recommend"
+                      :key="index"
+                    >
                   {{item}}
                 </span>
+                  </div>
+                  <div class="time">
+                    {{format(rating.rateTime)}}
+                  </div>
                 </div>
-                <div class="time">
-                  {{format(rating.rateTime)}}
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
           <div class="no-rating" v-show="!computedRatings || !computedRatings.length">暂无评价</div>
-        </div>
+        </scroll>
       </div>
     </div>
   </div>
@@ -74,6 +74,7 @@
   import split from '../split/split'
   import moment from 'moment'
   import star from '../star/star'
+  import Scroll from '../base/scroll'
 
   const ALL = 2
   export default {
@@ -126,6 +127,7 @@
       }
     },
     components: {
+      Scroll,
       ratingselect,
       split,
       star
@@ -202,7 +204,9 @@
             color: $color-light-grey
     .rating-wrapper
       padding: 0 18px
-
+      overflow: hidden
+      position: absolute
+      height: 100%
       .rating-item
         display: flex
         padding: 18px 0
